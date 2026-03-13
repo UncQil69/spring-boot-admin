@@ -54,9 +54,10 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/users/login", "/api/users/register", "/api/users/captcha").permitAll() 
+                .requestMatchers("/v1/users/login", "/v1/users/register", "/v1/users/captcha").permitAll() 
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll() 
-                .requestMatchers("/api/menus/**").authenticated()
+                .requestMatchers("/v1/menus/**").authenticated()
+                .requestMatchers("/v1/bank-accounts/**").authenticated()
                 .anyRequest().authenticated() 
             )
             

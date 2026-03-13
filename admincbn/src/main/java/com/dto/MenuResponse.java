@@ -10,10 +10,8 @@ public class MenuResponse {
     private String url;
     private List<MenuResponse> children = new ArrayList<>();
 
-    // Constructor Kosong
     public MenuResponse() {}
 
-    // Constructor Parameter (Ini yang dipanggil di MenuService)
     public MenuResponse(Long id, String title, String icon, String url) {
         this.id = id;
         this.title = title;
@@ -21,7 +19,6 @@ public class MenuResponse {
         this.url = url;
     }
 
-    // Getter & Setter (Penting agar data muncul di JSON)
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getTitle() { return title; }

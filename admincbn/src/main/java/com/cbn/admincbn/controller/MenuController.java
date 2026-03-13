@@ -25,8 +25,8 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/api/menus")
-@Tag(name = "Menu Management", description = "API untuk mengatur navigasi menu dinamis")
+@RequestMapping("/v1/menus")
+@Tag(name = "Menu Management", description = "Endpoint untuk mengatur navigasi menu dinamis")
 public class MenuController {
 
     @Autowired

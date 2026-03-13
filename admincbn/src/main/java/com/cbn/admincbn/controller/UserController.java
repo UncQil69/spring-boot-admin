@@ -1,7 +1,8 @@
 package com.cbn.admincbn.controller;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.HashMap; 
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping; 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession; 
 
 @RestController 
-@RequestMapping("/api/users")
+@RequestMapping("/v1/users")
 @Tag(name = "User Management", description = "Endpoint untuk mengelola data user")
 @SecurityRequirement(name = "Bearer Authentication") 
 public class UserController {
