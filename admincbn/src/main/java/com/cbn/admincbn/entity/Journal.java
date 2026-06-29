@@ -1,57 +1,69 @@
 package com.cbn.admincbn.entity;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.UUID;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "journal")
-@Getter 
+@Table(name = "journal", schema = "fin")
+@Getter
 @Setter
+@JsonPropertyOrder({ "id", "docNumber", "trsDate", "companyId", "typeId", "description", "reference", "fileName", "isPosted", "details" })
 public class Journal {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer companyId;
-    private Integer typeId;
+    @Column(name = "doc_number")
     private String docNumber;
+
+    @Column(name = "type_id")
+    private String typeId; 
+
+    @Column(name = "trs_date")
+    @JsonFormat(pattern = "yyyy-MM-dd") 
     private LocalDate trsDate;
+
     private String description;
     private String reference;
+
+    @Column(name = "company_id")
+    private String companyId;
+
+    @Column(name = "file_upload") 
+    private String fileName;
+
+    @Column(name = "is_posted")
     private Boolean isPosted = false;
-    private String status;
-    private LocalDateTime postedDate;
-    private Integer postedUserId;
-    private String postedUserName;
-    private Integer bankaccId;
-    private String bankaccName;
-    private String bankaccNumber;
-    private BigDecimal debit;
-    private BigDecimal credit;
-    private String pathFileUpload;
-    private String fileUpload;
-    
-    @Column(updatable = false)
-    private String createdBy;
-    private LocalDateTime createdTime = LocalDateTime.now();
-    
-    private String updatedBy;
-    private LocalDateTime updatedTime;
-    
+
+    @Column(name = "is_deleted")
     private Boolean isDeleted = false;
-    private String deletedBy;
-    private LocalDateTime deletedTime;
-    
-    private String uniqId = UUID.randomUUID().toString();
+
+    @OneToMany(mappedBy = "journal", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<JournalDetail> details = new ArrayList<>();
+
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 }

@@ -54,10 +54,15 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             
             .authorizeHttpRequests(auth -> auth
+                
                 .requestMatchers("/v1/users/login", "/v1/users/register", "/v1/users/captcha").permitAll() 
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll() 
+                
+                .requestMatchers("/v1/general/**").authenticated() 
                 .requestMatchers("/v1/menus/**").authenticated()
                 .requestMatchers("/v1/bank-accounts/**").authenticated()
+                 .requestMatchers("/v1/employee/**").authenticated()
+                
                 .anyRequest().authenticated() 
             )
             
@@ -74,7 +79,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*")); 
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "x-auth-token"));
         configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
